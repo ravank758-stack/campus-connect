@@ -33,7 +33,7 @@ function ProfilePage() {
 
   const save = async () => {
     const { error } = await supabase.from("profiles").update(form).eq("id", userId!);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Profile saved");
     qc.invalidateQueries({ queryKey: ["students"] });
   };
@@ -41,7 +41,7 @@ function ProfilePage() {
     e.preventDefault();
     if (!skill.name.trim()) return;
     const { error } = await supabase.from("skills").insert({ ...skill, name: skill.name.trim(), user_id: userId! });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setSkill({ ...skill, name: "" });
     qc.invalidateQueries({ queryKey: ["students"] });
   };

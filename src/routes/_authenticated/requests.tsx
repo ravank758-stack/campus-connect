@@ -20,7 +20,7 @@ function Requests() {
   const { data = [] } = useRequests(userId);
   const respond = async (id: string, status: "accepted" | "declined") => {
     const { error } = await supabase.from("match_requests").update({ status }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(status === "accepted" ? "Matched! Say hi in chat." : "Request declined");
     qc.invalidateQueries({ queryKey: ["requests"] });
   };

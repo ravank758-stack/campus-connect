@@ -46,7 +46,7 @@ function Admin() {
   ];
   const removeReview = async (id: string) => {
     const { error } = await supabase.from("reviews").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Review removed");
     qc.invalidateQueries({ queryKey: ["admin"] });
     qc.invalidateQueries({ queryKey: ["students"] });
@@ -88,7 +88,7 @@ function Admin() {
             {topSkills.map(([n, c]) => (
               <div key={n}>
                 <div className="flex justify-between text-sm"><span>{n}</span><span className="text-muted-foreground">{c}</span></div>
-                <div className="h-2 rounded-full bg-muted"><div className="bg-hero h-2 rounded-full" style={{ width: `${(c / topSkills[0][1]) * 100}%` }} /></div>
+                <div className="h-2 rounded-full bg-muted"><div className="bg-hero h-2 rounded-full" style={{ width: `${(c / (topSkills[0]?.[1] ?? 1)) * 100}%` }} /></div>
               </div>
             ))}
             {!topSkills.length && <p className="text-sm text-muted-foreground">No skills yet.</p>}

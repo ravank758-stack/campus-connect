@@ -41,13 +41,13 @@ function StudentPage() {
 
   const send = async () => {
     const { error } = await supabase.from("match_requests").insert({ sender_id: userId!, receiver_id: id, message: msg });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Request sent!");
     qc.invalidateQueries({ queryKey: ["req-with", id] });
   };
   const review = async () => {
     const { error } = await supabase.from("reviews").insert({ reviewer_id: userId!, reviewee_id: id, rating, comment });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Thanks for your review!");
     setComment("");
     qc.invalidateQueries({ queryKey: ["reviews", id] });

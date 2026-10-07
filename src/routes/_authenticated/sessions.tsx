@@ -35,12 +35,12 @@ function Sessions() {
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
     const m = matches.find((x) => x.id === f.request_id);
-    if (!m || !f.when) return toast.error("Pick a partner and time");
+    if (!m || !f.when) { toast.error("Pick a partner and time"); return; }
     const { error } = await supabase.from("sessions").insert({
       request_id: m.id, organizer_id: userId!, partner_id: m.other!.id, title: f.title,
       scheduled_at: new Date(f.when).toISOString(), duration_minutes: f.duration_minutes, location: f.location,
     });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Session scheduled!");
     setOpen(false);
     qc.invalidateQueries({ queryKey: ["sessions"] });
