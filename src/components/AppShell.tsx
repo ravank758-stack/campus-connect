@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, type ReactNode } from "react";
-import { Bell, Calendar, Compass, Handshake, LayoutDashboard, LogOut, MessageCircle, Shield, User } from "lucide-react";
+import { Bell, Calendar, Compass, Handshake, LayoutDashboard, LogOut, MessageCircle, Shield, User, Bot } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 
@@ -77,6 +77,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <Shield className="h-5 w-5" />
               </Link>
             )}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open-ai-chat"))}
+              className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary/15 to-accent/15 px-3 py-1.5 text-xs font-semibold text-primary hover:from-primary/25 hover:to-accent/25 transition-all shadow-sm"
+              title="Ask AI Mentor"
+            >
+              <Bot className="h-4 w-4 text-accent" />
+              <span className="hidden sm:inline">AI Mentor</span>
+            </button>
             <Link to="/notifications" className="relative rounded-full p-2 text-muted-foreground hover:bg-secondary" aria-label="Notifications">
               <Bell className="h-5 w-5" />
               {unread > 0 && (

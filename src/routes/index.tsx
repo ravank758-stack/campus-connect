@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Calendar, Handshake, MessageCircle, Search, Star, Target } from "lucide-react";
+import { ArrowRight, Calendar, Handshake, MessageCircle, Search, Star, Target, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/")({
 });
 
 const FEATURES = [
+  { icon: Bot, title: "AI Campus Mentor", text: "Get smart swap recommendations, tailored 1-hour agendas, icebreaker drafts, and instant learning guidance with SwapBot." },
   { icon: Target, title: "Smart matching", text: "See a match % based on what you teach, what you want to learn, your campus and free time." },
   { icon: Search, title: "Discover peers", text: "Search by skill, college, department, year and level." },
   { icon: Handshake, title: "Match requests", text: "Send a request, get accepted, start swapping." },
@@ -32,7 +33,15 @@ function Landing() {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-foreground/15">⇄</span>
             SkillSwap Campus
           </span>
-          <Link to="/auth" className="text-sm font-semibold hover:underline">Sign in</Link>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open-ai-chat"))}
+              className="flex items-center gap-1.5 text-sm font-semibold hover:opacity-80 transition-opacity"
+            >
+              <Bot className="h-4 w-4" /> Ask AI
+            </button>
+            <Link to="/auth" className="text-sm font-semibold hover:underline">Sign in</Link>
+          </div>
         </div>
       </header>
       <section className="bg-hero relative overflow-hidden text-primary-foreground">
@@ -48,6 +57,15 @@ function Landing() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90">
                 <Link to="/auth">Get started free <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              </Button>
+              <Button
+                type="button"
+                size="lg"
+                variant="outline"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-ai-chat"))}
+                className="rounded-full border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 backdrop-blur-sm"
+              >
+                <Bot className="mr-1.5 h-4 w-4" /> Ask SwapBot AI
               </Button>
             </div>
           </div>
