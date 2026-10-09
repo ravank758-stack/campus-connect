@@ -43,7 +43,9 @@ function Chat() {
     return () => { supabase.removeChannel(ch); };
   }, [r, qc]);
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [msgs.length]);
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msgs.length]);
 
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
